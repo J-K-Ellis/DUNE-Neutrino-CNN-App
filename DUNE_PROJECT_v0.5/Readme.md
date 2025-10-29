@@ -99,7 +99,7 @@ You’ll be prompted to select a data directory. Once you select it, the app wil
 
 ---
 
-## Developer Notes
+## Developer (Extra)  Notes
 
 * The app uses `matplotlib.use('agg')` for headless rendering, meaning it’s safe to run on servers without a display.
 * The `Backend`, `Core_Functions`, and `Helpers` folders must each define an `__all__` list for the auto-import to work correctly.
