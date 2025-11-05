@@ -331,7 +331,7 @@ class Model_Architecture_Page(tk.Frame):
                     x = Dense(units, activation=activation)(x)
             # Dropout
             elif hasattr(layer_frame, 'dropout_var'):
-                rate = layer_frame.dropout_var.get()
+                rate = layer_frame.dpytropout_var.get()
                 x = Dropout(rate)(x)
 
         classes = self.output_classes_var.get()
@@ -438,7 +438,6 @@ class Model_Architecture_Page(tk.Frame):
             self.input_shapes[i][2].set(c)
 
         # Separate branch-specific layers vs shared
-        # from tensorflow.keras.layers import (InputLayer, Concatenate, Activation,  LeakyReLU, Softmax)
 
         all_layers = [l for l in loaded_model.layers if not isinstance(l, InputLayer)]
         merge_idx = next((idx for idx, l in enumerate(all_layers) if isinstance(l, Concatenate)), None)

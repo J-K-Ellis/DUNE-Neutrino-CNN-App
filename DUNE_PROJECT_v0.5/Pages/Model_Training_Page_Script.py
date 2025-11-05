@@ -98,6 +98,10 @@ class Model_Training_Page(tk.Frame):
         test_size_text_box.delete(0, tk.END)
         test_size_text_box.insert(0,20)
 
+        Model_Tuning_Button = tk.Button( train_split_params_frame , text='Model Tuning Options' , command=lambda:( self.controller.attributes("-fullscreen", True) , self.controller.show_frame("Model_Tuning_Page") )  )
+        Model_Tuning_Button.pack( anchor='w' ,side = tk.LEFT  )
+
+
         Model_Training_Params_Frame = tk.Frame(self)
         Model_Training_Params_Frame.pack( anchor='w' , pady = (10 , 20) )
 
@@ -129,6 +133,7 @@ class Model_Training_Page(tk.Frame):
 
 
         # Create buttons to when to start/stop training, monitor, save model, test batch sizes. Stop button should halt training process immediately upon batch completion.
+
         tk.Button(Control_Training_Frame, text='Train', command=lambda: self.controller.Frame_Manager.setup_process(self) ).pack(anchor='w' , side= tk.LEFT)
         tk.Button(Control_Training_Frame, text='Stop', command=lambda: self.controller.Frame_Manager.cancel_process(self) ).pack(anchor='w' , side= tk.LEFT)
 
@@ -152,7 +157,12 @@ class Model_Training_Page(tk.Frame):
             text_box.config(state='disabled')
 
             if page_update:
+
                 self.class_setting_button.config(state='normal')
+                
+                # Setting "Page_Activated" to "True" for reference in other parts of the script [Example, in the "Model_Tuning_Page" ].
+
+                self.controller.frames.get("Advance_Class_Selection_Page").Page_Activated = True
 
                 self.controller.selected_directory = directory_path
 
@@ -168,6 +178,10 @@ class Model_Training_Page(tk.Frame):
             text_box.insert(0, directory_path)
             text_box.config(state='disabled')
             self.class_setting_button.config(state='disabled')
+
+            # Setting "Page_Activated" to "False" for reference in other parts of the script
+            self.controller.frames.get("Advance_Class_Selection_Page").Page_Activated = False
+
 
 
     def Show_Advanced_Class_Page(self):

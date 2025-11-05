@@ -8,8 +8,11 @@ class Advance_Class_Selection_Page(tk.Frame):
         self.controller  = controller
         self.style       = ttk.Style()
         self.update_flag = tk.BooleanVar(value=False)
+        
+        self.Page_Activated = False 
+        
         self.test_set_dir = None 
-
+        
         self.Enable_Value = tk.BooleanVar( value = True)
         self.Epochs_Before_Refresh = tk.IntVar( value= 0)
         self.Enable_Class_Weights = tk.BooleanVar(value=True)
