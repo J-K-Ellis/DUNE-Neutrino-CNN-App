@@ -1,6 +1,7 @@
 from Imports.common_imports import *
 
 class Show_Confusion_Page(tk.Frame):
+    """A Tkinter frame for displaying the confusion matrix."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller

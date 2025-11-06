@@ -2,6 +2,7 @@ from Imports.common_imports import *
 
 
 class Show_Model_Filters_Page(tk.Frame):
+    """A Tkinter frame for displaying model filters."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -32,7 +33,7 @@ class Show_Model_Filters_Page(tk.Frame):
 
 
     def Update_Model_display(self):
-
+        """ Print out the layers of the current model to the console. """
         for layer in self.controller.model.layers :
 
             try:
@@ -41,7 +42,7 @@ class Show_Model_Filters_Page(tk.Frame):
                 print(layer , '< No ativation >')
 
     def Model_Filters_Ready(self):
-
+        """ Prepare the Show_Model_Filters_Page by populating it with the model's layers and appropriate buttons. """
         # Build the list of layers from the current model.
         # For each layer a label is shown. In the case of Conv2D layers, a “Show” button is added that will call Plot_Model_Filters for that layer.
         # Any previously added widgets (labels/buttons) are cleared first.
@@ -81,6 +82,12 @@ class Show_Model_Filters_Page(tk.Frame):
                 tk.Button(layer_frame, text="Show", command=lambda l=layer: Show_Model_Filters_Page.Plot_Model_Filters( self = self , conv_layer = l) ).pack(side='left', padx=5)
 
     def Plot_Model_Filters(self, conv_layer):
+        """ Display the filters of the given convolutional layer in the Filter_Plot area.
+        Args:
+            conv_layer: The convolutional layer whose filters are to be displayed.
+        Returns:
+            None
+        """
 
         # Clear the current plot area and display a new plot of the filters from the given conv_layer. If the button is pressed again (or another conv layer’s button is clicked) the previous plot is removed.
 

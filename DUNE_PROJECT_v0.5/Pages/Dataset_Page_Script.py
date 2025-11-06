@@ -4,7 +4,16 @@ from Helpers.Frame_Manager_Script import Frame_Manager
 
 
 class Dataset_Page(tk.Frame):
+    "'A Tkinter frame for dataset creation and loading."
     def __init__(self, parent, controller):
+        """Initialize the Dataset Page frame.
+        Args:       
+            parent: The parent Tkinter widget.
+            controller: The main application controller for managing frames and data.
+        Returns:
+            None
+        """
+        
         super().__init__(parent)
 
 

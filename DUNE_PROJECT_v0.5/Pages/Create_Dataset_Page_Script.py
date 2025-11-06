@@ -6,7 +6,14 @@ from Helpers.Scrollable_Frame_Script import ScrollableFrame
 
 
 class Create_Dataset_Page(tk.Frame):
+    """Page for creating a machine learning dataset from selected files."""
     def __init__(self, parent, controller):
+        """Initialize the Create Dataset Page.
+        Args:
+            parent: The parent Tkinter widget.
+            controller: The main application controller.
+        Returns:
+            None"""
         super().__init__(parent)
 
         self.controller = controller
@@ -19,34 +26,18 @@ class Create_Dataset_Page(tk.Frame):
         self.header_frame = tk.Frame(self)
         self.header_frame.pack(anchor='w', padx=10, pady=20)
 
-        back_button = tk.Button(
-            self.header_frame,
-            text='Back',
-            command=lambda: controller.show_frame("Dataset_Page")
-        )
+        back_button = tk.Button( self.header_frame, text='Back', command=lambda: controller.show_frame("Dataset_Page") )
         back_button.pack(side=tk.LEFT)
 
-        header_label = tk.Label(
-            self.header_frame,
-            text="Create Dataset",
-            font=("Helvetica", 16)
-        )
+        header_label = tk.Label( self.header_frame, text="Create Dataset", font=("Helvetica", 16) )
         header_label.pack(side=tk.LEFT, padx=150)
 
         self.progressive_frame = tk.Frame(self)
         self.progressive_frame.pack(anchor='w', padx=10, pady=(0, 20))
 
-        self.progress = ttk.Progressbar(
-            self.progressive_frame,
-            orient="horizontal",
-            length=600,
-            mode="determinate"
-        )
-        self.progress_label = tk.Label(
-            self.progressive_frame,
-            text='',
-            font=("Arial", 12)
-        )
+        self.progress = ttk.Progressbar( self.progressive_frame, orient="horizontal", length=600, mode="determinate" )
+        self.progress_label = tk.Label( self.progressive_frame, text='', font=("Arial", 12) )
+
         self.progress.pack(anchor='w', side=tk.LEFT)
         self.progress_label.pack(anchor='w', side=tk.LEFT)
 
@@ -79,16 +70,14 @@ class Create_Dataset_Page(tk.Frame):
         self.button_frame = tk.Frame(self)
         self.button_frame.pack(anchor='w', padx=10, pady=(0, 20))
 
-        tk.Button(
-            self.button_frame,
-            text="Select All",
-            command=self.select_all
-        ).pack(side=tk.LEFT, padx=5)
+        tk.Button( self.button_frame, text="Select All", command=self.select_all ).pack(side=tk.LEFT, padx=5)
+
         tk.Button(
             self.button_frame,
             text="Deselect All",
             command=self.deselect_all
         ).pack(side=tk.LEFT, padx=5)
+
         tk.Button(
             self.button_frame,
             text="Confirm Selection",
@@ -196,19 +185,21 @@ class Create_Dataset_Page(tk.Frame):
         self.Figure_Frame.pack(anchor='w', side=tk.LEFT, pady=5)
 
     def select_all(self):
+        """Select all files in the list."""
         for var, _ in self.file_vars:
             var.set(1)
 
     def deselect_all(self):
+        """Deselect all files in the list."""
         for var, _ in self.file_vars:
             var.set(0)
 
     def confirm_selection(self):
-        self.selected_files = [
-            file for var, file in self.file_vars if var.get()
-        ]
+        """Confirm the selected files and store them."""
+        self.selected_files = [  file for var, file in self.file_vars if var.get() ]
 
     def Preview_Interaction(self):
+        """Preview a randomly selected file from the selected files."""
         # Ensure files are selected
         if not self.selected_files:
             print("No files selected for preview!")
@@ -237,7 +228,7 @@ class Create_Dataset_Page(tk.Frame):
 
 
     def Create_ML_Dataset_2(self):
-
+        """Create the machine learning dataset based on user parameters and selected files."""
         if not self.selected_files:
             print("No files selected for dataset creation!")
             self.progress_value = 100

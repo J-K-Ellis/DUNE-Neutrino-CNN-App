@@ -2,7 +2,7 @@ from Imports.common_imports import *
 
 
 class Monitor_Training_Page(tk.Frame):
-
+    """A Tkinter frame for monitoring training progress with various plots and controls."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -76,6 +76,12 @@ class Monitor_Training_Page(tk.Frame):
 
 
     def setup_class_filter(self, *args):
+        """ Setup the class filter menu with checkbuttons for each class.
+        Args:
+            *args: Variable length argument list, expects the last argument to be a list of class labels.
+        Returns:
+            None
+        """
 
         # Extract the labels list from the last argument
         if not args:
@@ -97,7 +103,12 @@ class Monitor_Training_Page(tk.Frame):
 
 
     def update_class_visibility(self):
-
+        """ Update the visibility of class-specific lines in the plots based on the class filter menu selections.
+        Args:
+            None
+        Returns:
+            None
+        """
         for lbl, var in self.class_filter_vars.items():
             vis = var.get()
             for ax in (self.class_accuracy_ax,
@@ -129,6 +140,12 @@ class Monitor_Training_Page(tk.Frame):
 
 
     def toggle_legend(self):
+        """ Toggle the visibility of legends in all class-specific plots.
+        Args:
+            None
+        Returns:
+            None
+        """
 
         self.legend_visible = not self.legend_visible
         for ax, canvas in (

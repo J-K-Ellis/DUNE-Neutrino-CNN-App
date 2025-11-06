@@ -2,6 +2,7 @@ from Imports.common_imports import *
 from Helpers.Frame_Manager_Script import Frame_Manager
 
 class View_traj_Page(tk.Frame):
+   """A Tkinter frame for viewing trajectory dataset files."""
    def __init__(self, parent, controller):
         super().__init__(parent)
 

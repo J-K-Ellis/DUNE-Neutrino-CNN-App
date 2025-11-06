@@ -1,18 +1,8 @@
-# import os
-# import h5py
-# import numpy as np
-# import pandas as pd
-# import tkinter as tk
-# from tkinter import ttk
-# from Helpers.Frame_Manager_Script import Frame_Manager
-# from Helpers.Scrollable_Frame_Script import ScrollableFrame
-# from Backend.Generic_Plot_script import Generic_Plot
-
 from Imports.common_imports import *
 
 
 class Custom_Figure_Page(tk.Frame):
-
+    """A Tkinter frame for creating and displaying custom figures."""
     def __init__(self, parent, controller):
         super().__init__(parent)
 
@@ -87,6 +77,12 @@ class Custom_Figure_Page(tk.Frame):
 
 
     def Custom_Selection(self):
+        """ Function to create and display the custom figure based on user selections.
+        Args:
+            None
+        Returns:
+            None
+        """
         # Close the old figure (if any) and clear the frame
         if hasattr(self, 'custom_fig'):
             plt.close(self.custom_fig)
@@ -131,6 +127,11 @@ class Custom_Figure_Page(tk.Frame):
 
 
     def on_file_selected(self, *args):
+        """Callback triggered when a new file is selected from the dropdown.
+        Args:
+            *args: Variable length argument list.
+        Returns:
+            None"""
         path = os.path.join(self.controller.Data_Directory, self.file_selected.get())
         with h5py.File(path, 'r') as sim_h5:
             unique_event_ids = list(np.unique(sim_h5["segments"]['event_id']))
@@ -159,7 +160,12 @@ class Custom_Figure_Page(tk.Frame):
 
 
     def on_event_selected(self, *args):
-        """Callback triggered when a new event is selected from the dropdown."""
+        """Callback triggered when a new event is selected from the dropdown.
+        Args:
+            *args: Variable length argument list.
+        Returns:
+            None
+        """
 
         path = os.path.join(self.controller.Data_Directory, self.file_selected.get())
         with h5py.File(path, 'r') as sim_h5:

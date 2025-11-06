@@ -1,6 +1,7 @@
 from Imports.common_imports import *
 
 class Settings_Page(tk.Frame):
+    """A Tkinter frame for application settings."""
     def __init__(self, parent, controller):
         super().__init__(parent)
 

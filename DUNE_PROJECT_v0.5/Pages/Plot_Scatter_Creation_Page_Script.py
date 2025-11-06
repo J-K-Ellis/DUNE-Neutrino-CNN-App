@@ -1,16 +1,8 @@
-# import os
-# import h5py
-# import numpy as np
-# import pandas as pd
-# import tkinter as tk
-# from tkinter import ttk
-# from Helpers.Frame_Manager_Script import Frame_Manager
-# from Helpers.Scrollable_Frame_Script import ScrollableFrame
-# from Backend.Generic_Plot_script import Generic_Plot
 from Imports.common_imports import *
 
 
 class Scatter_Creation_Page(tk.Frame):
+    """A Tkinter frame for creating and displaying scatter plots."""
     def __init__(self, parent, controller):
 
         super().__init__(parent)
@@ -123,6 +115,14 @@ class Scatter_Creation_Page(tk.Frame):
         self.Figure_Frame.pack(anchor='w', side=tk.LEFT, pady=5)
 
     def Lock_Unlock_Cmap(self, yes_no, selection_combobox, *args):
+        """ Enable or disable the selection_combobox based on the yes_no variable.
+        Args:
+            yes_no: A Tkinter StringVar indicating 'Yes' or 'No'.
+            selection_combobox: The Tkinter Combobox to enable or disable.
+        Returns:
+            None
+        """
+
         # Switch the state of the selection_combobox dropdown
         if yes_no.get() == 'Yes':
             selection_combobox.config(state='readonly')
@@ -152,19 +152,11 @@ class Scatter_Creation_Page(tk.Frame):
             self.event_combobox.pack(anchor='w', side=tk.LEFT)
 
     def Plot_Type_Map(self, *args):
-
+        """Determine whether to create a scatter plot directly or use the manager for pixel array plots."""
         if self.pixel_array_select.get() != 'Yes':
-            # Generic_Plot.Create_Scatter_Fig(self)
-
-            # print( dir( self.controller ) )
-            # self.controller.Create_Scatter_Fig(self)
             self.controller.Generic_Plot.Create_Scatter_Fig(self)
         else:
-            # Frame_Manager.setup_process(self)
             self.manager.setup_process()
-            # print( dir(self.controller.Frame_Manager.setup_process) )
-            # self.controller.Frame_Manager.setup_process( self )
-
 
         return
 

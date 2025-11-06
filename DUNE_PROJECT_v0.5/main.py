@@ -16,6 +16,15 @@ matplotlib.use('agg')
 
 class App(tk.Tk):
     def _destroy_frame(self, frame_class):
+        """
+        Destroy a frame given its class.
+        
+        Args:
+            frame_class: The class of the frame to destroy.
+        Returns:
+            None
+        """
+
         frame = self.frames.get(frame_class)
         if frame:
             frame.destroy()
@@ -23,6 +32,14 @@ class App(tk.Tk):
 
 
     def _reinitialize_frame(self, frame_or_name):
+        """
+        Reinitialize a frame given its class or name.
+
+        Args:
+            frame_or_name: The class or name of the frame to reinitialize.
+        Returns:
+            None
+        """
         # if a string was given, look up the class in Pages
         if isinstance(frame_or_name, str):
             try:
@@ -46,7 +63,65 @@ class App(tk.Tk):
         new_frame.grid(row=0, column=0, sticky="nsew")
 
 
+
+    def show_frame(self, page_identifier):
+        """
+        Raise a page given its class *or* its name.
+
+        Args:
+            page_identifier: The class or name of the page to show.
+        Returns:
+            None
+        """
+
+        if isinstance(page_identifier, str):
+            try:
+                PageClass = getattr(Pages, page_identifier)
+            except AttributeError:
+                raise KeyError(f"No page named {page_identifier!r}")
+        else:
+            PageClass = page_identifier
+
+        print( PageClass )
+        frame = self.frames[PageClass]
+        frame.tkraise()
+
+        if hasattr(frame, 'refresh_content'):
+            frame.refresh_content()
+
+
+        self.after_idle(lambda: self._resize_to(frame))
+
+    def _resize_to(self, frame):
+        """"Resize the main window to fit the given frame.
+
+        Args:
+            frame: The frame to resize to.
+        Returns:
+            None"""
+        # force layout update
+        self.update_idletasks()
+        
+        w = frame.winfo_reqwidth()
+        h = frame.winfo_reqheight()
+
+
+        w = max(w, self.min_width)
+        h = max(h, self.min_height)
+        self.geometry(f"{w}x{h}")
+
+
     def __init__(self, Data_Directory='', input_type='edep', det_complex='2x2'):
+        """
+        Initialize the main application.
+
+        Args:
+            Data_Directory: Path to the data directory.
+            input_type: Type of input data.
+            det_complex: Detector complexity.
+        Returns:
+            None
+        """
         super().__init__()
         self.title("Msci Project App")
 
@@ -72,7 +147,7 @@ class App(tk.Tk):
 
         # ─── Core attributes ─────────────────────────────────────────
         self.Data_Directory = Data_Directory
-        # self.Data_Directory = ''
+        
         self.pdg_id_map = Backend.pdg_id_script.pdg_id_map
         self.pdg_id_map_reverse = {v: k for k, v in self.pdg_id_map.items()}
         self.plot_type = 'scatter'
@@ -150,37 +225,7 @@ class App(tk.Tk):
         # show the start page
         self.show_frame('StartPage')
 
-    def show_frame(self, page_identifier):
-        """Raise a page given its class *or* its name."""
-        if isinstance(page_identifier, str):
-            try:
-                PageClass = getattr(Pages, page_identifier)
-            except AttributeError:
-                raise KeyError(f"No page named {page_identifier!r}")
-        else:
-            PageClass = page_identifier
 
-        print( PageClass )
-        frame = self.frames[PageClass]
-        frame.tkraise()
-
-        if hasattr(frame, 'refresh_content'):
-            frame.refresh_content()
-
-
-        self.after_idle(lambda: self._resize_to(frame))
-
-    def _resize_to(self, frame):
-        # force layout update
-        self.update_idletasks()
-        
-        w = frame.winfo_reqwidth()
-        h = frame.winfo_reqheight()
-
-
-        w = max(w, self.min_width)
-        h = max(h, self.min_height)
-        self.geometry(f"{w}x{h}")
 
 
 

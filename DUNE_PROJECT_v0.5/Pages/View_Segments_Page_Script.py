@@ -2,6 +2,7 @@ from Imports.common_imports import *
 from Helpers.Frame_Manager_Script import Frame_Manager
 
 class View_Segments_Page(tk.Frame):
+    """A Tkinter frame for viewing segments dataset files."""
     def __init__(self, parent, controller):
         super().__init__(parent)
 

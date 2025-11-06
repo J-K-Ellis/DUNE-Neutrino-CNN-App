@@ -1,6 +1,9 @@
 from Imports.common_imports import *
 
 class Evaluate_Model_Page(tk.Frame):
+    """A Tkinter frame for evaluating trained models on selected datasets.
+        Probably need to add more description here later.
+    """
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller

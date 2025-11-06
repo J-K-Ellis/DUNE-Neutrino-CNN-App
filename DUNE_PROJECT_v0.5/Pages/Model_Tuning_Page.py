@@ -1,7 +1,7 @@
 from Imports.common_imports import *
 
 class Model_Tuning_Page(tk.Frame):
-
+    """A Tkinter frame for setting model tuning conditions."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -60,6 +60,12 @@ class Model_Tuning_Page(tk.Frame):
     
     
     def Update_Tuning_Page(self, Advance_Page_var):
+        """ Function to update the Model Tuning Page based on the Advance Class Selection Page.
+        Args:
+            Advance_Page_var: The instance of the Advance_Class_Selection_Page frame.
+        Returns:
+            None
+        """
         # Update the condition variable dropdown based on selected classes from Advance_Class_Selection_Page
         if not hasattr(Advance_Page_var, "Page_Activated"):
             print("Advance page not initialized.")
@@ -80,17 +86,24 @@ class Model_Tuning_Page(tk.Frame):
 
 
     def test_function(self):
+        """ Function to print the current conditions for debugging purposes."""
         for idx, (row, cond_var, entry_var) in enumerate(self.conditions):
             print(f"Condition {idx + 1}: Variable = {cond_var.get()}, Entry = {entry_var.get()}")
 
 
     def _on_condition_var_selected(self, event=None):
+        """Callback when a condition variable is selected from the dropdown.
+        Args:
+            event: The Tkinter event object (not used).
+        Returns:
+            None"""
         # Ensure a variable is selected before adding a condition row
         if not self.Condition_Varible_Dropdown.get():
             return
         self._add_condition_row()
 
     def _add_condition_row(self):
+        """Add a new condition row to the scrollable frame."""
         # Create a new row for conditions in the scrollable frame
         row = tk.Frame(self.scrollable_frame)
         row.pack(anchor='w', pady=2, fill='x')
@@ -108,6 +121,7 @@ class Model_Tuning_Page(tk.Frame):
         cond_entry.pack_forget()  # hide until selection made
 
         def on_dropdown_select(event=None):
+            """Callback when a condition type is selected from the dropdown."""
             cond_entry.pack(side=tk.LEFT, padx=5)
 
         cond_dropdown.bind("<<ComboboxSelected>>", on_dropdown_select)
@@ -115,12 +129,14 @@ class Model_Tuning_Page(tk.Frame):
         self.conditions.append((row, cond_var, entry_var))
 
     def _remove_condition_row(self):
+        """Remove the last condition row from the scrollable frame."""
         if not self.conditions:
             return
         row, _, _ = self.conditions.pop()
         row.destroy()
 
     def _clear_all_conditions(self):
+        """Clear all condition rows from the scrollable frame."""
         for row, _, _ in self.conditions:
             row.destroy()
         self.conditions.clear()

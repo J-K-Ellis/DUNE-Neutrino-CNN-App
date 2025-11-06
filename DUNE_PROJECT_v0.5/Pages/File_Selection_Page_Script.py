@@ -2,6 +2,7 @@ from Imports.common_imports import *
 
 
 class File_Selection_Page(tk.Frame):
+    """A Tkinter frame for selecting files from the data directory."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -69,21 +70,25 @@ class File_Selection_Page(tk.Frame):
 
 
     def select_all(self):
+        """ Function to handle selecting all files."""
         #Select all file checkboxes.
         for var in self.file_vars:
             var.set(1)
 
     def deselect_all(self):
+        """ Function to handle deselecting all files."""
         #Deselect all file checkboxes.
         for var in self.file_vars:
             var.set(0)
 
     def get_selected_files(self):
+        """ Function to retrieve the list of selected files."""
         #Retrieve the list of selected files.
         selected_files = [file for file, var in zip(self.controller.File_Names, self.file_vars) if var.get()]
         return selected_files
 
     def confirm_selection(self):
+        """ Function to confirm the selected files and update the controller's Allowed_Files list."""
         #Update the Allowed_Files in the controller based on user selection.
 
         selected = self.get_selected_files()

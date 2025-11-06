@@ -2,6 +2,7 @@ from Imports.common_imports import *
 
 
 class Figure_Creation_Page(tk.Frame):
+    """A Tkinter frame for creating figures based on user-selected parameters."""
     def __init__(self, parent, controller):
 
         super().__init__(parent)
@@ -186,6 +187,12 @@ class Figure_Creation_Page(tk.Frame):
 
 
     def Lock_Unlock_Cmap(self, yes_no, selection_combobox, *args):
+        """Function to lock or unlock a selection_combobox based on the value of yes_no.
+        Args:
+            yes_no: A Tkinter StringVar that holds 'Yes' or 'No'.
+            selection_combobox: The ttk.Combobox to be enabled or disabled.
+        Returns:
+            None"""
         # Switch the state of the selection_combobox dropdown
         if yes_no.get() == 'Yes':
             selection_combobox.config(state='readonly')
@@ -197,6 +204,11 @@ class Figure_Creation_Page(tk.Frame):
 
 
     def on_file_selected(self, *args):
+        """ Function to update the event_id dropdown based on the selected file.
+        Args:
+            None
+        Returns:
+            None"""
         #Callback triggered when a new file is selected from the dropdown.
 
         path = os.path.join(self.controller.Data_Directory, self.file_selected.get())
@@ -221,6 +233,12 @@ class Figure_Creation_Page(tk.Frame):
 
 
     def Plot_Type_Map(self, *args):
+        """Function to map the plot type to the correct figure creation function.
+        Args:
+            None
+        Returns:
+            None"""
+        
         # Function to map the plot type to the correct figure creation function.
         if self.controller.plot_type == 'scatter':
             if self.pixel_array_select.get() != 'Yes':

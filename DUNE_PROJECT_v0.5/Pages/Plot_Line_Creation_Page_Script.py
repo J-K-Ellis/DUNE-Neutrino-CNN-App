@@ -4,6 +4,7 @@ from Imports.common_imports import *
 
 
 class Line_Creation_Page(tk.Frame):
+    """A Tkinter frame for creating and displaying line plots."""
     def __init__(self, parent, controller):
 
         super().__init__(parent)
@@ -97,6 +98,13 @@ class Line_Creation_Page(tk.Frame):
         self.Figure_Frame.pack(anchor='w', side=tk.LEFT, pady=5)
 
     def Lock_Unlock_Cmap(self, yes_no, selection_combobox, *args):
+        """ Enable or disable the selection_combobox based on the yes_no variable.
+        Args:
+            yes_no: A Tkinter StringVar indicating 'Yes' or 'No'.
+            selection_combobox: The Tkinter Combobox to enable or disable.
+        Returns:
+            None"""
+        
         # Switch the state of the selection_combobox dropdown
         if yes_no.get() == 'Yes':
             selection_combobox.config(state='readonly')
@@ -105,7 +113,12 @@ class Line_Creation_Page(tk.Frame):
             selection_combobox.config(state='disabled')
 
     def on_file_selected(self, *args):
-        """Callback triggered when a new file is selected from the dropdown."""
+        """Callback triggered when a new file is selected from the dropdown.
+        Args:
+            *args: Variable length argument list.
+        Returns:
+            None"""
+        
         path = os.path.join(self.controller.Data_Directory, self.file_selected.get())
         self.event_id_selected = tk.StringVar()
         with h5py.File(path, 'r') as sim_h5:

@@ -1,6 +1,7 @@
 from Imports.common_imports import *
 
 class StartPage(tk.Frame):
+    """The main start page frame for the Dune Data Analysis application."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         label = tk.Label(self, text="Dune Data Analysis 📊", font=("Helvetica", 16))
@@ -22,8 +23,7 @@ class StartPage(tk.Frame):
 
 
     def Load_Datasets(self):
-
-        
+        """Open a file dialog to select a data directory and load dataset files from it."""
         directory = tk.filedialog.askdirectory( title="Select a Data Directory", initialdir=os.getcwd() )
 
         if directory: 

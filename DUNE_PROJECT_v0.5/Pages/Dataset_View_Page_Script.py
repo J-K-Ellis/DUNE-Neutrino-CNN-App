@@ -3,7 +3,15 @@ from Imports.common_imports import *
 
 # Define a class Dataset_View_Page, which holds buttons to navigate to different dataset viewing pages.
 class Dataset_View_Page(tk.Frame):
+    "'A Tkinter frame for viewing different datasets."
     def __init__(self, parent, controller):
+        """Initialize the Dataset View Page frame.
+        Args:       
+            parent: The parent Tkinter widget.
+            controller: The main application controller for managing frames and data.
+        Returns:
+            None
+        """
         super().__init__(parent)
 
         # Create a frame for the title and back button

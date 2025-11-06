@@ -11,8 +11,15 @@ from Backend import Custom_Plot_script
 
 
 class Custom_Figure_Page(tk.Frame):
-
+    """A Tkinter frame for selecting and displaying custom figures based on user input."""
+    
     def __init__(self, parent, controller):
+        """Initialize the Custom Figure Page frame.
+        Args:
+            parent: The parent Tkinter widget.
+            controller: The main application controller for managing frames and data.
+        Returns:
+            None"""
         super().__init__(parent)
 
         # Page Title
@@ -86,6 +93,8 @@ class Custom_Figure_Page(tk.Frame):
 
 
     def Custom_Selection(self):
+        """Handle the custom figure selection and plotting based on user input.""" 
+
         # Close the old figure (if any) and clear the frame
         if hasattr(self, 'custom_fig'):
             plt.close(self.custom_fig)
@@ -130,6 +139,7 @@ class Custom_Figure_Page(tk.Frame):
 
 
     def on_file_selected(self, *args):
+        """Callback triggered when a new file is selected from the dropdown."""
         path = os.path.join(self.controller.Data_Directory, self.file_selected.get())
         with h5py.File(path, 'r') as sim_h5:
             unique_event_ids = list(np.unique(sim_h5["segments"]['event_id']))

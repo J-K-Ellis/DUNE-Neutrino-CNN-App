@@ -4,7 +4,6 @@ class Model_Training_Page(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.loss_fn = tf.keras.losses.SparseCategoricalCrossentropy()
-        # self.loss_fn = SparseCategoricalFocalLoss( gamma=2.0 )
 
         # self.optimizer = tf.keras.optimizers.Adam( learning_rate  = 0.00001 )
         self.controller = controller

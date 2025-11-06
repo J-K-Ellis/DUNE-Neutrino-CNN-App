@@ -10,13 +10,15 @@ class Model_Training:
 
 
     @tf.function
-    def Model_training_Step(self, model, x_batch, y_batch, class_weights_vec):
+    def Model_training_Step(self, model, x_batch, y_batch, class_weights_vec , Conditions = []):
         with tf.GradientTape() as tape:
             logits = model(x_batch, training=True)
 
             per_example = tf.nn.sparse_softmax_cross_entropy_with_logits( labels=y_batch, logits=logits )
             weights = tf.gather(class_weights_vec, y_batch)
-            loss = tf.reduce_mean(per_example * weights)
+
+            if Conditions ==[]:    
+                loss = tf.reduce_mean(per_example * weights)
 
         grads = tape.gradient(loss, model.trainable_variables)
         self.optimizer.apply_gradients(zip(grads, model.trainable_variables))
@@ -409,9 +411,13 @@ class Model_Training:
 
         # Advance_Class_Page = next(f for cls,f in self.controller.frames.items() if cls.__name__=="Advance_Class_Selection_Page")
         Advance_Class_Page = self.controller.frames.get("Advance_Class_Selection_Page")
+        Model_Tuning_Page = self.controller.frames.get("Model_Tuning_Page")
+
         use_advanced = Advance_Class_Page.Enable_Value.get()
 
         custom_test_active = Advance_Class_Page.Enable_Class_Weights.get()
+
+        Model_Tuning_Conditions = Model_Tuning_Page.conditions
 
         # build datasets and class_weight_dict 
         if use_advanced:
@@ -496,7 +502,7 @@ class Model_Training:
                 for i, (x_batch, y_batch) in enumerate(train):
                     if not self.controller.running:
                         break
-                    batch_loss, batch_acc = trainer.Model_training_Step(  self.controller.model, x_batch, y_batch, class_weights_vec )
+                    batch_loss, batch_acc = trainer.Model_training_Step(  self.controller.model, x_batch, y_batch, class_weights_vec  , Conditions = Model_Tuning_Conditions)
                     train_loss_total += batch_loss
                     train_acc_total += batch_acc
                     train_steps += 1

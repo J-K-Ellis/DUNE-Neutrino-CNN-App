@@ -3,6 +3,7 @@ from Helpers.Frame_Manager_Script import Frame_Manager
 
 
 class Plot_Selection_Page(tk.Frame):
+    """A Tkinter frame for selecting different types of plots to create."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller

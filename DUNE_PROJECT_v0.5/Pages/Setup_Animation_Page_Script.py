@@ -2,6 +2,7 @@ from Imports.common_imports import *
 
 
 class Setup_Animation_Page(tk.Frame):
+    """A Tkinter frame for setting up animation parameters before running the event player."""
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
