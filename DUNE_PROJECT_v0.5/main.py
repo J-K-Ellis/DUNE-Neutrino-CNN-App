@@ -123,7 +123,7 @@ class App(tk.Tk):
             None
         """
         super().__init__()
-        self.title("Msci Project App")
+        self.title("Project App")
 
         self.min_width = 400
         self.min_height = 300 
