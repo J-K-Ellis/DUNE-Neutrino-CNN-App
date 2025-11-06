@@ -331,7 +331,7 @@ class Model_Architecture_Page(tk.Frame):
                     x = Dense(units, activation=activation)(x)
             # Dropout
             elif hasattr(layer_frame, 'dropout_var'):
-                rate = layer_frame.dpytropout_var.get()
+                rate = layer_frame.dropout_var.get()
                 x = Dropout(rate)(x)
 
         classes = self.output_classes_var.get()
