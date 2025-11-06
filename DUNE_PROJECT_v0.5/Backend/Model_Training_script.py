@@ -17,8 +17,12 @@ class Model_Training:
             per_example = tf.nn.sparse_softmax_cross_entropy_with_logits( labels=y_batch, logits=logits )
             weights = tf.gather(class_weights_vec, y_batch)
 
-            if Conditions ==[]:    
-                loss = tf.reduce_mean(per_example * weights)
+            loss = tf.reduce_mean(per_example * weights)
+            if Conditions !=[]:    
+                loss = self.controller.Tuning_Condition_Handler.evaluate_conditions(batch_data={ 'logits': logits, 'y_batch': y_batch, 'per_example': per_example, 'weights': weights, 'loss': loss }, conditions=Conditions ) 
+                pass
+
+
 
         grads = tape.gradient(loss, model.trainable_variables)
         self.optimizer.apply_gradients(zip(grads, model.trainable_variables))

@@ -7,7 +7,7 @@ class Tuning_Condition_Handler:
 
 
 
-    def evaluate_conditions(self, batch_data):
+    def evaluate_conditions(self, batch_data, conditions):
         """
         Evaluate the tuning conditions on the given batch data based on the conditions set in the Model_Tuning_Page.
         Args:
@@ -18,4 +18,5 @@ class Tuning_Condition_Handler:
         """
 
         # Pending update
+        
         return 
